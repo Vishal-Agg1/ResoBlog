@@ -23,19 +23,52 @@ export class Service{
            throw error;
          }
      }
-     async updatepost({title, slug, content, featuredimage, status, userid}){
+     async updatepost({title, slug, content, featuredimage, status}){
       try {
         return await this.databases.updateDocument(
           conf.appwritedatabaseid,
           conf.appwritecollectionid,
-          slag,
+          slug,
           {
             title,
             content,
             featuredimage,
             status,
-            userid,
           }
+        )
+      } catch (error) {
+        console.log(error);
+      }
+     }
+     async deletedoc(slug){
+      try {
+        await this.databases.deleteDocument(
+          conf.appwritedatabaseid,
+          conf.appwritecollectionid,
+          slug
+        )
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+     }
+     async post(slag){
+      try {
+        return await this.databases.getDocument(
+          conf.appwritedatabaseid,
+          conf.appwritecollectionid,
+          slag,
+        )
+      } catch (error) {
+        console.log(error);
+      }
+     }
+     async allpost(){
+      try {
+        return this.databases.listDocuments(
+          conf.appwritedatabaseid,
+          conf.appwritecollectionid,
         )
       } catch (error) {
         console.log(error);
