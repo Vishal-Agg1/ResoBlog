@@ -69,10 +69,44 @@ export class Service{
         return this.databases.listDocuments(
           conf.appwritedatabaseid,
           conf.appwritecollectionid,
+          [
+            Query.equal("status","active")
+          ]
+        )
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+     }
+     async uploadfile(file){
+      try {
+        return await this.bucket.createFile(
+          conf.appwritebucketid,
+          ID.unique(),
+          file
         )
       } catch (error) {
         console.log(error);
       }
+     }
+     async delfile(id){
+         try {
+          await this.bucket.deleteFile(
+            conf.appwritebucketid,
+            id,
+          )
+          return true;
+         } catch (error) {
+          console.log(error);
+          return false;
+         }
+     }
+
+     getfilepreveiw(id){
+      return this.bucket.getFilePreview(
+        conf.appwritebucketid,
+        id,
+      )
      }
 }
 const service = new Service();
