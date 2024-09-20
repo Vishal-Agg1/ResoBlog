@@ -13,10 +13,33 @@ export class Service{
      }
      async createpost({title, slug, content, featuredimage, status, userid}){
          try {
-           
+           return await this.databases.createDocument(
+            conf.appwritedatabaseid,
+            conf.appwritecollectionid,
+            slug,
+            {
+            title,content,featuredimage,status,userid,})
          } catch (error) {
            throw error;
          }
+     }
+     async updatepost({title, slug, content, featuredimage, status, userid}){
+      try {
+        return await this.databases.updateDocument(
+          conf.appwritedatabaseid,
+          conf.appwritecollectionid,
+          slag,
+          {
+            title,
+            content,
+            featuredimage,
+            status,
+            userid,
+          }
+        )
+      } catch (error) {
+        console.log(error);
+      }
      }
 }
 const service = new Service();
