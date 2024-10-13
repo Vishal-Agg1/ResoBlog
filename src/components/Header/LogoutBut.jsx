@@ -4,7 +4,6 @@ import Auth from "../../Appwrite/Auth/Auth";
 import { logout } from "../../store/authSlice";
 
 function LogoutBtn(){
-    const [stat,setstat] = useState(true);
     const dispatch = useDispatch();
     const handler=()=>{
         Auth.logout().then(()=>{
