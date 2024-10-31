@@ -8,5 +8,6 @@ export {
     Footer,
     Container,
     LogoutBtn,
-    Logo
+    Logo,
+    
 };

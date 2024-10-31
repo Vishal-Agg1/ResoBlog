@@ -1,11 +1,11 @@
 import React,{useState}from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login as authlogin } from "../store/authSlice";
-import {Button} from "./Button";
-import {Input} from "./Input";
-import {Logo} from "./Logo";
+import Button from "./Button"
+import Input from "./Input";
+import Logo from "./Logo";
 import { useDispatch } from "react-redux";
-import {Auth} from "../Appwrite/Auth/Auth";
+import Auth from "../Appwrite/Auth/Auth";
 import { useForm } from "react-hook-form";
 function Login(){
     const navigate = useNavigate();
@@ -59,8 +59,14 @@ return(
                })} 
             />
 
-            <Input type="password" label="Password" placeholder="enter password" {...register("pass"),{required:true, minLength: 8,}} />
-            <Button type="submit" className="w-full" > Sign in</Button>
+<input 
+  type="password" 
+  label="Password" 
+  placeholder="enter password" 
+  {...register("pass", { required: true, minLength: 8 })} 
+/>
+<Button type="submit" className="w-full">Sign in</Button>
+
            </div>
         </form>
     </div>
