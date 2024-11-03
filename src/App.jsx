@@ -8,7 +8,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(
     ()=>{
-      Auth.Currentuser()
+      Auth.getCurrentUser()
       .then((userData)=>{
         if(userData){
           dispatch(login({userData}));

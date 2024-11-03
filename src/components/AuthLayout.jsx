@@ -7,11 +7,11 @@ const [loader,setloader] = useState(true);
 const authstatus = useSelector(state=> state.auth.status);
 useEffect(()=>{
     if(Authentication && authstatus!== Authentication){
-          Navigate("/login")
+        return <Navigate to="/login" />;
     }else if(!Authentication && authstatus!== Authentication){
-        Navigate("/")
+        return <Navigate to="/" />;
     }
-    setloader(false)
+    setloader(false);
 },[authstatus, Navigate,Authentication])
     return loader ? <h1>Loading ...</h1> :<>{children}</>
 }

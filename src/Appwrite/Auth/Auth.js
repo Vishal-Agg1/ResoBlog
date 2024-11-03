@@ -6,33 +6,39 @@ export class AuthService {
 
    constructor() {
        this.client
-           .setEndpoint(conf.appwriteUrl)
-           .setProject(conf.appwriteProjectId);
+           .setEndpoint(conf.appwriteurl)
+           .setProject(conf.appwriteprojectid);
        this.account = new Account(this.client);
            
    }
 
-   async createAccount({email, password, name}) {
-       try {
-           const userAccount = await this.account.create(ID.unique(), email, password, name);
-           if (userAccount) {
-               // call another method
-               return this.login({email, password});
-           } else {
-              return  userAccount;
-           }
-       } catch (error) {
-           throw error;
-       }
-   }
+   async createAccount({ email, password, name }) {
+    try {
+        const userAccount = await this.account.create(ID.unique(), email, password, name);
+        console.log("Account created:", userAccount); // Check account creation response
+        if (userAccount) {
+            const loginResponse = await this.login({ email, password });
+            console.log("Login response:", loginResponse); // Check login response
+            return loginResponse;
+        } else {
+            return userAccount;
+        }
+    } catch (error) {
+        console.error("Create Account Error:", error);
+        throw error;
+    }
+}
 
-   async login({email, password}) {
-       try {
-           return await this.account.createEmailSession(email, password);
-       } catch (error) {
-           throw error;
-       }
-   }
+async login({ email, password}) {
+    try {
+        const session = await this.account.createEmailPasswordSession(email, password);
+        console.log("Session created:", session); // Check if session is created
+        return session;
+    } catch (error) {
+        console.error("Login error:", error);
+        throw error;
+    }
+}
 
    async getCurrentUser() {
        try {

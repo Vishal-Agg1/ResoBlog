@@ -7,7 +7,7 @@ import store from './store/store.js'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from "./Pages/Home.jsx"
 import AuthLayout from "./components/AuthLayout.jsx"
-import Login from "./components/Login.jsx"
+import Logup from "./Pages/Login.jsx"
 
 import AddPost from "./Pages/AddPost.jsx";
 import Signingup from './Pages/Signup.jsx'
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
             path: "/login",
             element: (
                 <AuthLayout authentication={false}>
-                    <Login />
+                    <Logup />
                 </AuthLayout>
             ),
         },
