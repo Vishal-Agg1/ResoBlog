@@ -48,7 +48,7 @@ export default function PostForm({post}){
         }
     }
 
-    const slugTransform
+    
     return(
         <></>
     )
