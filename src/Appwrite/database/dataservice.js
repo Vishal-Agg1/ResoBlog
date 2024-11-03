@@ -64,19 +64,19 @@ export class Service{
         console.log(error);
       }
      }
-     async allpost(){
+     async allpost(queries = [Query.equal("status", "active")]){
       try {
-        return this.databases.listDocuments(
-          conf.appwritedatabaseid,
-          conf.appwritecollectionid,
-          [
-            Query.equal("status","active")
-          ]
+        return await this.databases.listDocuments(
+            conf.appwritedatabaseid,
+            conf.appwritecollectionid,
+            queries,
+            
+
         )
-      } catch (error) {
-        console.log(error);
-        return false;
-      }
+    } catch (error) {
+        console.log("Appwrite serive :: getPosts :: error", error);
+        return false
+    }
      }
      async uploadfile(file){
       try {

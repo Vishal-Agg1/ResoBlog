@@ -1,23 +1,23 @@
 import React,{useState}from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login as authlogin } from "../store/authSlice";
-import {Button} from "./Button";
-import {Input} from "./Input";
-import {Logo} from "./Logo";
+import Button from "./Button"
+import Input from "./Input";
+import Logo from "./Logo";
 import { useDispatch } from "react-redux";
-import {Auth} from "../Appwrite/Auth/Auth";
+import Auth from "../Appwrite/Auth/Auth";
 import { useForm } from "react-hook-form";
 function Login(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {register, handlesubmit} = useForm()
+    const {register, handleSubmit} = useForm()
     const [error,seterror] = useState("")
    const login = async(data)=>{
         seterror("")
      try {
         const session = await Auth.login(data)
         if(session){
-            const userData  = await Auth.Currentuser();
+            const userData  = await Auth.getCurrentUser();
             if(userData) dispatch(authlogin(userData));
             navigate("/")
         }
@@ -45,7 +45,7 @@ return(
                     </Link>
         </p>
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-        <form onSubmit={handlesubmit(login)} className="mt-8">
+        <form onSubmit={handleSubmit(login)} className="mt-8">
            <div className="space-y-5">
             <Input 
                label = "Email" type="email"
@@ -59,8 +59,14 @@ return(
                })} 
             />
 
-            <Input type="password" label="Password" placeholder="enter password" {...register("pass"),{required:true, minLength: 8,}} />
-            <Button type="submit" className="w-full" > Sign in</Button>
+<input 
+  type="password" 
+  label="Password" 
+  placeholder="enter password" 
+  {...register("pass", { required: true, minLength: 8 })} 
+/>
+<Button type="submit" className="w-full">Sign in</Button>
+
            </div>
         </form>
     </div>
