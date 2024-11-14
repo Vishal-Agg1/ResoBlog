@@ -4,6 +4,7 @@ import Conatiner from "../components/container/container";
 import PostCard from "../components/PostCard"
 export default function AllPosts(){
     const [posts,setposts]=useState([]);
+    useEffect(() => {}, []);
        service.allpost([]).then((posts)=>{
         if(posts){
             setposts(posts.documents);

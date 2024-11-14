@@ -23,24 +23,24 @@ export default function PostForm({ post }) {
     const submit = async (data) => {
         try {
             let dbPost;
+            const file = data.image?.[0] ? await service.uploadfile(data.image[0]) : null;
+
             if (post) {
-                const file = data.image?.[0] ? await service.uploadfile(data.image[0]) : null;
                 if (file) {
                     await service.delfile(post.featuredImage);
                 }
                 dbPost = await service.updatepost({
                     ...data,
                     slug: post.$id,
-                    featuredImage: file ? file.$id : undefined,
+                    featuredImage: file ? file.$id : post.featuredImage,
                 });
             } else {
-                const file = data.image?.[0] ? await service.uploadfile(data.image[0]) : null;
                 if (file) {
                     data.featuredImage = file.$id;
                 }
                 dbPost = await service.createpost({ ...data, userId: userData.$id });
             }
-    
+
             console.log("Database Post Result:", dbPost);  // Check if dbPost has the expected $id
             if (dbPost && dbPost.$id) {
                 navigate(`/post/${dbPost.$id}`);
@@ -51,7 +51,6 @@ export default function PostForm({ post }) {
             console.error("Error submitting post:", error);
         }
     };
-    
 
     const slugTransform = useCallback((value) => {
         if (value && typeof value === "string") {

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import service from '../Appwrite/database/dataservice';
 import {Container} from '../components'
 import PostCard from '../components/PostCard';
-
+import auth from '../store/store';
 function Home() {
     const [posts, setPosts] = useState([])
 
@@ -14,7 +14,7 @@ function Home() {
         })
     }, [])
   
-    if (posts.length === 0) {
+    if (!auth.status) {
         return (
             <div className="w-full py-8 mt-4 text-center">
                 <Container>
